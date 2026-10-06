@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attention Is All She Deserves</title>
+  <meta name="description" content="Happy birthday, Puja. A little website for a big day, with love from Niloy.">
+  <!-- shared by link, not meant to be found through search engines -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Attention Is All She Deserves">
+  <meta property="og:description" content="Happy birthday, Puja ♥ With love, Niloy.">
+  <meta property="og:image" content="https://quitttcat.github.io/attention-is-all-she-deserves/assets/og.jpg">
+  <meta property="og:url" content="https://quitttcat.github.io/attention-is-all-she-deserves/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#C2185B">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --rose: #C2185B;
+      --rose-deep: #8E0E42;
+      --rose-soft: #FCE4EC;
+      --gold: #E0A100;
+      --ink: #22313F;
+      --muted: #5F6B7A;
+      --paper: #FFF8F3;
+      --night: #140B12;
+      --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --hand: "Caveat", "Segoe Print", cursive;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: var(--serif); font-size: 18px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    [hidden] { display: none !important; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+    .topbar { height: 6px; background: var(--rose); }
+
+    h2 {
+      font-family: var(--sans); font-weight: 800; letter-spacing: -0.01em;
+      font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; text-align: center; margin: 0 0 10px;
+    }
+    .lead { text-align: center; color: var(--muted); margin: 0 auto 30px; max-width: 620px; }
+    section { padding: 72px 0 0; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-weight: 600; font-size: 15px;
+      color: #fff; background: var(--ink); border: 0; border-radius: 999px; padding: 11px 20px;
+      text-decoration: none; cursor: pointer; transition: transform .15s ease, background .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); background: #34485c; }
+    .btn.rose { background: var(--rose); }
+    .btn.rose:hover { background: var(--rose-deep); }
+    .btn.ghost { background: transparent; color: var(--rose); box-shadow: inset 0 0 0 2px var(--rose); }
+    .btn.ghost:hover { background: var(--rose-soft); }
+
+    /* ---------------- hero ---------------- */
+    header.hero { text-align: center; padding: 60px 16px 0; }
+    .chip-top {
+      display: inline-block; font-family: var(--sans); font-weight: 600; font-size: 13px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--rose); background: var(--rose-soft); border-radius: 999px; padding: 6px 14px;
+    }
+    h1 {
+      font-family: var(--sans); font-weight: 800; letter-spacing: -0.025em;
+      font-size: clamp(40px, 8vw, 76px); line-height: 1.04; margin: 22px 0 16px;
+    }
+    h1 em { font-style: normal; color: var(--rose); }
+    .subtitle { font-style: italic; color: var(--rose-deep); font-size: clamp(18px, 2.6vw, 22px); margin: 0 auto; max-width: 640px; }
+    .from { font-family: var(--hand); font-size: 30px; color: var(--ink); margin: 14px 0 0; }
+    .from span { color: var(--rose); }
+    .buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 26px 0 0; }
+
+    .strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 40px; }
+    .strip figure { position: relative; margin: 0; border-radius: 12px; overflow: hidden; aspect-ratio: 3 / 4; background: #eee; }
+    .strip img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .strip figure:hover img { transform: scale(1.05); }
+    .tag {
+      position: absolute; left: 8px; bottom: 8px; font-family: var(--sans); font-size: 12px; font-weight: 600;
+      color: #fff; padding: 2px 8px; border-radius: 4px;
+    }
+
+    /* ---------------- spotlight ---------------- */
+    .spot {
+      position: relative; height: min(78vh, 620px); min-height: 440px; border-radius: 20px; overflow: hidden;
+      background: var(--night); touch-action: pan-y; user-select: none; -webkit-user-select: none;
+    }
+    .spot-grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); }
+    .spot-grid img { width: 100%; height: 100%; object-fit: cover; }
+    .spot-mask {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 45%),
+        rgba(20, 11, 18, 0) 0, rgba(20, 11, 18, 0) var(--r, 120px), rgba(20, 11, 18, .95) calc(var(--r, 120px) + 90px));
+    }
+    .spot-text { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; color: #fff; pointer-events: none; padding: 0 16px; }
+    .spot-text h2 { color: #fff; margin: 0; text-shadow: 0 2px 18px rgba(0,0,0,.6); }
+    .spot-text p { margin: 6px 0 0; color: #f3d6e1; font-size: 16px; text-shadow: 0 1px 10px rgba(0,0,0,.7); }
+
+    /* ---------------- letter ---------------- */
+    .letter-zone { display: flex; flex-direction: column; align-items: center; }
+    .envelope {
+      position: relative; width: min(520px, 100%); aspect-ratio: 16 / 10; border: 0; padding: 0; cursor: pointer;
+      background: #EFC7D2; border-radius: 12px; perspective: 900px;
+      box-shadow: 0 14px 40px rgba(142, 14, 66, .18); transition: transform .3s ease, opacity .5s ease;
+    }
+    .envelope:hover { transform: translateY(-3px) rotate(-.6deg); }
+    .envelope .pocket {
+      position: absolute; inset: 0; border-radius: 12px; background: #F6D9E1;
+      clip-path: polygon(0 100%, 0 30%, 50% 72%, 100% 30%, 100% 100%);
+    }
+    .envelope .flap {
+      position: absolute; left: 0; right: 0; top: 0; height: 62%; background: #E4A9B9;
+      clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center;
+      transition: transform .7s cubic-bezier(.4, .1, .2, 1); border-radius: 12px 12px 0 0;
+    }
+    .envelope .seal {
+      position: absolute; left: 50%; top: 62%; width: 68px; height: 68px; margin: -34px 0 0 -34px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #E0457F, var(--rose) 55%, var(--rose-deep));
+      box-shadow: 0 4px 10px rgba(0,0,0,.25), inset 0 0 0 5px rgba(255,255,255,.15);
+      color: #fff; font-family: var(--hand); font-weight: 700; font-size: 38px; line-height: 68px; text-align: center;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .envelope .to { position: absolute; left: 0; right: 0; bottom: 14%; text-align: center; font-family: var(--hand); font-size: 28px; color: var(--rose-deep); }
+    .envelope.open .flap { transform: rotateX(180deg); }
+    .envelope.open .seal { opacity: 0; transform: scale(.6); }
+    .envelope.gone { opacity: 0; transform: translateY(30px) scale(.96); pointer-events: none; }
+    .hint { font-family: var(--sans); font-size: 14px; color: var(--muted); margin-top: 14px; }
+
+    .letter {
+      width: min(680px, 100%); background: #fff; border-radius: 6px; padding: 40px 44px 36px;
+      box-shadow: 0 20px 50px rgba(34, 49, 63, .14);
+      background-image: repeating-linear-gradient(transparent 0 33px, #F4E7EA 33px 34px);
+      background-position: 0 38px;
+    }
+    .letter .dear { font-family: var(--hand); font-size: 40px; color: var(--rose); margin: 0 0 10px; line-height: 1.2; }
+    .letter p { margin: 0 0 16px; font-size: 19px; line-height: 34px; }
+    .letter .sign { font-family: var(--hand); font-size: 34px; color: var(--rose-deep); text-align: right; margin: 6px 0 0; }
+    .letter.show > * { opacity: 0; transform: translateY(10px); animation: rise .7s ease forwards; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    /* ---------------- flip cards ---------------- */
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .card { border: 0; padding: 0; background: none; cursor: pointer; aspect-ratio: 3 / 4; perspective: 1000px; font: inherit; color: inherit; text-align: left; }
+    .card .inner { display: block; position: relative; width: 100%; height: 100%; transition: transform .7s cubic-bezier(.4, .1, .2, 1); transform-style: preserve-3d; }
+    .card.flipped .inner { transform: rotateY(180deg); }
+    .card .front, .card .back {
+      position: absolute; inset: 0; border-radius: 16px; overflow: hidden;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 8px 24px rgba(34, 49, 63, .12);
+    }
+    .card .front img { width: 100%; height: 100%; object-fit: cover; }
+    .card .front .label {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 14px 12px; color: #fff;
+      font-family: var(--sans); font-weight: 800; font-size: 18px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .65));
+    }
+    .card .front .flipicon {
+      position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,.85); color: var(--rose); font: 700 16px/30px var(--sans); text-align: center;
+    }
+    .card .back {
+      transform: rotateY(180deg); background: linear-gradient(150deg, var(--rose), var(--rose-deep));
+      color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 20px;
+    }
+    .card .back .t { display: block; font-family: var(--hand); font-weight: 700; font-size: 32px; margin: 0 0 8px; line-height: 1.1; }
+    .card .back .d { display: block; font-size: 16px; line-height: 1.5; }
+
+    /* ---------------- polaroid wall ---------------- */
+    .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 26px 20px; padding: 6px 4px; }
+    .polaroid {
+      margin: 0; background: #fff; padding: 10px 10px 0; box-shadow: 0 6px 18px rgba(34, 49, 63, .14);
+      transform: rotate(var(--r, 0deg)); transition: transform .25s ease, box-shadow .25s ease; position: relative;
+    }
+    .polaroid:nth-child(6n+1) { --r: -3deg; }
+    .polaroid:nth-child(6n+2) { --r: 2deg; }
+    .polaroid:nth-child(6n+3) { --r: -1.5deg; }
+    .polaroid:nth-child(6n+4) { --r: 3deg; }
+    .polaroid:nth-child(6n+5) { --r: -2.5deg; }
+    .polaroid:nth-child(6n)   { --r: 1.2deg; }
+    .polaroid:hover { transform: rotate(0) scale(1.06); z-index: 2; box-shadow: 0 14px 30px rgba(34, 49, 63, .22); }
+    .polaroid button { display: block; width: 100%; border: 0; padding: 0; background: #eee; cursor: zoom-in; aspect-ratio: 3 / 4; }
+    .polaroid img { width: 100%; height: 100%; object-fit: cover; }
+    .polaroid figcaption { font-family: var(--hand); font-size: 21px; text-align: center; padding: 6px 0 10px; color: var(--ink); line-height: 1.1; }
+    .polaroid::before {
+      content: ""; position: absolute; top: -10px; left: 50%; width: 64px; height: 20px; margin-left: -32px;
+      background: rgba(252, 228, 236, .85); transform: rotate(-3deg); box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    }
+
+    dialog.lightbox {
+      border: 0; padding: 0; background: transparent; max-width: min(92vw, 640px); width: 100%;
+    }
+    dialog.lightbox::backdrop { background: rgba(20, 11, 18, .85); }
+    .lightbox .frame { background: #fff; padding: 14px 14px 0; border-radius: 4px; }
+    .lightbox img { width: 100%; max-height: 76vh; object-fit: contain; background: #111; }
+    .lightbox p { font-family: var(--hand); font-size: 28px; text-align: center; margin: 8px 0 12px; }
+    .lightbox .close {
+      position: absolute; top: -14px; right: -14px; width: 40px; height: 40px; border-radius: 50%; border: 0;
+      background: var(--rose); color: #fff; font: 700 22px/40px var(--sans); cursor: pointer;
+    }
+
+    /* ---------------- cake ---------------- */
+    .cake-zone { display: flex; flex-direction: column; align-items: center; }
+    .cake { position: relative; width: 300px; margin-top: 70px; }
+    .candles { display: flex; justify-content: center; gap: 24px; height: 52px; align-items: flex-end; position: relative; z-index: 2; }
+    .candle {
+      position: relative; width: 12px; height: 50px; border: 0; padding: 0; border-radius: 3px; cursor: pointer;
+      background: repeating-linear-gradient(45deg, #fff 0 6px, #90CAF9 6px 12px);
+    }
+    .candle::before { content: ""; position: absolute; left: -14px; right: -14px; top: -44px; bottom: 0; } /* bigger tap target */
+    .candle::after { content: ""; position: absolute; left: 50%; top: -6px; width: 2px; height: 7px; margin-left: -1px; background: #444; }
+    .flame {
+      position: absolute; left: 50%; bottom: calc(100% + 4px); width: 16px; height: 28px; margin-left: -8px;
+      background: radial-gradient(ellipse at 50% 72%, #fff 0 18%, #FFE082 30%, #FFA000 62%, rgba(255,111,0,0) 72%);
+      border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+      filter: drop-shadow(0 0 10px rgba(255, 170, 0, .9));
+      transform-origin: 50% 90%; animation: flicker 1.4s ease-in-out infinite alternate;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .candle:nth-child(2) .flame { animation-delay: -.3s; }
+    .candle:nth-child(3) .flame { animation-delay: -.6s; }
+    .candle:nth-child(4) .flame { animation-delay: -.9s; }
+    .candle:nth-child(5) .flame { animation-delay: -1.2s; }
+    @keyframes flicker {
+      0%   { transform: rotate(-3deg) scaleY(1); }
+      50%  { transform: rotate(2deg) scaleY(1.08); }
+      100% { transform: rotate(-1deg) scaleY(.94); }
+    }
+    .candle.out .flame { opacity: 0; transform: scale(.2); animation: none; }
+    .smoke {
+      position: absolute; left: 50%; bottom: calc(100% + 6px); width: 10px; height: 10px; margin-left: -5px; border-radius: 50%;
+      background: rgba(140, 140, 140, .55); opacity: 0; pointer-events: none;
+    }
+    .candle.out .smoke { animation: smoke 1.4s ease-out forwards; }
+    @keyframes smoke {
+      0%   { opacity: .7; transform: translateY(0) scale(.6); }
+      100% { opacity: 0; transform: translateY(-46px) translateX(8px) scale(2.4); }
+    }
+    .tier { position: relative; margin: 0 auto; }
+    .tier.top { width: 210px; height: 74px; background: #F8BBD0; border-radius: 14px 14px 6px 6px; }
+    .tier.bottom { width: 280px; height: 96px; background: var(--rose); border-radius: 14px 14px 10px 10px; margin-top: -2px; }
+    .tier::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 26px; border-radius: 14px 14px 0 0;
+      background: radial-gradient(circle at 10px 18px, #fff 9px, transparent 10px) 0 0 / 20px 26px repeat-x, linear-gradient(#fff, #fff) 0 0 / 100% 12px no-repeat;
+    }
+    .tier.bottom::after {
+      content: ""; position: absolute; left: 18px; right: 18px; bottom: 22px; height: 10px;
+      background: radial-gradient(circle, var(--gold) 4px, transparent 5px) 0 0 / 24px 10px repeat-x;
+    }
+    .plate { width: 320px; height: 16px; background: #E6DCD3; border-radius: 50%; margin: -6px auto 0; }
+    .wish-msg { font-family: var(--hand); font-size: 36px; color: var(--rose); min-height: 48px; margin: 26px 0 6px; text-align: center; }
+
+    /* ---------------- footer ---------------- */
+    footer { text-align: center; padding: 90px 16px 70px; }
+    .hb { font-family: var(--sans); font-weight: 800; color: var(--rose); font-size: clamp(32px, 6vw, 52px); margin: 0; }
+    .made { color: var(--muted); font-size: 15px; margin: 10px 0 20px; }
+
+    @media (max-width: 760px) {
+      body { font-size: 17px; }
+      header.hero { padding-top: 42px; }
+      section { padding-top: 56px; }
+      .strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 46%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+      .strip figure { scroll-snap-align: start; }
+      .spot-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); }
+      .cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .card .back { padding: 14px; }
+      .card .back .t { font-size: 26px; }
+      .card .back .d { font-size: 14px; }
+      .letter { padding: 28px 22px 24px; }
+      .letter p { font-size: 17px; }
+      .wall { grid-template-columns: repeat(2, 1fr); gap: 22px 16px; }
+      .cake { transform: scale(.9); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn, .strip img, .card .inner, .envelope, .envelope .flap, .polaroid { transition: none; }
+      .flame { animation: none; }
+      .letter.show > * { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar"></div>
+
+  <header class="hero wrap">
+    <span class="chip-top">A little website for a big day</span>
+    <h1>Attention Is All <em>She</em> Deserves</h1>
+    <p class="subtitle">Happy birthday, Puja. Today every eye, every heart and every bit of my attention is on you.</p>
+    <p class="from">with love, Niloy <span>♥</span></p>
+    <div class="buttons">
+      <a class="btn" href="#letter">✉️ Open your letter</a>
+      <a class="btn" href="#wish">🎂 Make a wish</a>
+      <button class="btn rose" id="celebrate" type="button">🎉 Celebrate</button>
+    </div>
+
+    <div class="strip">
+      <figure><img src="assets/photos/p19.webp" alt="Puja in a blue saree by the sea" width="600" height="800"><span class="tag" style="background:#1E6FB8">sea</span></figure>
+      <figure><img src="assets/photos/p03.webp" alt="Puja holding roses at a flower market" width="600" height="800"><span class="tag" style="background:#C2185B">flowers</span></figure>
+      <figure><img src="assets/photos/p16.webp" alt="Puja at a Saraswati Puja pandal" width="600" height="800"><span class="tag" style="background:#7B2FBE">festivals</span></figure>
+      <figure><img src="assets/photos/p30.webp" alt="Puja in a magenta saree by a green door" width="600" height="800"><span class="tag" style="background:#00796B">old doors</span></figure>
+      <figure><img src="assets/photos/p31.webp" alt="Puja in a red saree at an art installation" width="600" height="800"><span class="tag" style="background:#B07D00">art</span></figure>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- spotlight -->
+    <section id="spotlight" aria-label="Spotlight">
+      <div class="spot" id="spot">
+        <div class="spot-grid">
+          <img src="assets/photos/p21.webp" alt="" loading="lazy">
+          <img src="assets/photos/p14.webp" alt="" loading="lazy">
+          <img src="assets/photos/p28.webp" alt="" loading="lazy">
+          <img src="assets/photos/p12.webp" alt="" loading="lazy">
+          <img src="assets/photos/p02.webp" alt="" loading="lazy">
+          <img src="assets/photos/p05.webp" alt="" loading="lazy">
+          <img src="assets/photos/p29.webp" alt="" loading="lazy">
+          <img src="assets/photos/p22.webp" alt="" loading="lazy">
+        </div>
+        <div class="spot-mask" id="spotMask"></div>
+        <div class="spot-text">
+          <h2>All eyes on her.</h2>
+          <p>Move the light around. Wherever it lands, it finds her.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- letter -->
+    <section id="letter">
+      <h2>A letter for you</h2>
+      <p class="lead">Sealed, signed, and delivered on time.</p>
+      <div class="letter-zone">
+        <button class="envelope" id="envelope" type="button" aria-label="Open the letter">
+          <span class="pocket"></span>
+          <span class="flap"></span>
+          <span class="seal">P</span>
+          <span class="to">for Puja</span>
+        </button>
+        <p class="hint" id="envHint">Tap the envelope to open it</p>
+        <article class="letter" id="letterCard" hidden>
+          <p class="dear">Dear Puja,</p>
+          <p>You are one of the brightest people I know: a Math Olympiad camper who now plans cities, a photographer who notices light on ordinary things, a traveller, a reader, a gardener, a ukulele player, and someone who stops at night to feed a street cat.</p>
+          <p>Working on our paper with you was one of the best parts of this year. Making this for you was even better.</p>
+          <p>May this new year bring you excellent grades, beautiful journeys, armfuls of roses, new chords on the ukulele, and a thousand reasons to smile exactly the way you do.</p>
+          <p>Happy birthday.</p>
+          <p class="sign">— Niloy ♥</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- flip cards -->
+    <section id="why">
+      <h2>Why she deserves all the attention</h2>
+      <p class="lead">Tap a card to flip it.</p>
+      <div class="cards">
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p07.webp" alt="Puja smiling with a red rose" loading="lazy"><span class="flipicon">↻</span><span class="label">The smile</span></span>
+          <span class="back"><span class="t">The smile</span><span class="d">Exhibit A. No further evidence required.</span></span>
+        </span></button>
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p25.webp" alt="Puja in glasses and a red sweater" loading="lazy"><span class="flipicon">↻</span><span class="label">The brain</span></span>
+          <span class="back"><span class="t">The brain</span><span class="d">National Winner and National Camper, Math Olympiad 2021. GPA 5.00, twice. District merit lists, every single time.</span></span>
+        </span></button>
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p22.webp" alt="Puja on a balcony in front of buildings" loading="lazy"><span class="flipicon">↻</span><span class="label">The planner</span></span>
+          <span class="back"><span class="t">The planner</span><span class="d">Studying Urban &amp; Regional Planning at KUET. One day whole cities will be designed by her.</span></span>
+        </span></button>
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p04.webp" alt="Puja taking a mirror selfie" loading="lazy"><span class="flipicon">↻</span><span class="label">The photographer</span></span>
+          <span class="back"><span class="t">The photographer</span><span class="d">Lightroom, Snapseed, Photoshop. She sees light where everyone else sees ordinary.</span></span>
+        </span></button>
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p01.webp" alt="Three photos of Puja at the beach" loading="lazy"><span class="flipicon">↻</span><span class="label">The traveller</span></span>
+          <span class="back"><span class="t">The traveller</span><span class="d">Sajek, Rangamati, Sylhet, Kuakata, Sunamganj… and many more trips still to come.</span></span>
+        </span></button>
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p26.webp" alt="Puja choosing a book from a yellow bookshelf" loading="lazy"><span class="flipicon">↻</span><span class="label">The reader</span></span>
+          <span class="back"><span class="t">The reader</span><span class="d">Happiest between bookshelves. Also grows plants and makes art, because one hobby was never going to be enough.</span></span>
+        </span></button>
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p18.webp" alt="Puja feeding a street cat at night" loading="lazy"><span class="flipicon">↻</span><span class="label">The kind heart</span></span>
+          <span class="back"><span class="t">The kind heart</span><span class="d">Stops at night to feed a street cat. Enough said.</span></span>
+        </span></button>
+        <button class="card" type="button"><span class="inner">
+          <span class="front"><img src="assets/photos/p17.webp" alt="Puja's long hair, seen from behind on a bridge" loading="lazy"><span class="flipicon">↻</span><span class="label">The hair</span></span>
+          <span class="back"><span class="t">The hair</span><span class="d">Long enough to have its own fan club. The author is the president.</span></span>
+        </span></button>
+      </div>
+    </section>
+
+    <!-- polaroid wall -->
+    <section id="wall">
+      <h2>30 frames, zero bad ones</h2>
+      <p class="lead">Tap any photo to see it bigger.</p>
+      <div class="wall" id="wallGrid"></div>
+    </section>
+
+    <!-- cake -->
+    <section id="wish">
+      <h2>Make a wish</h2>
+      <p class="lead">Close your eyes, make a wish, then tap each flame to blow out the candles.</p>
+      <div class="cake-zone">
+        <div class="cake">
+          <div class="candles" id="candles">
+            <button class="candle" type="button" aria-label="Blow out candle 1"><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle" type="button" aria-label="Blow out candle 2"><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle" type="button" aria-label="Blow out candle 3"><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle" type="button" aria-label="Blow out candle 4"><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle" type="button" aria-label="Blow out candle 5"><span class="flame"></span><span class="smoke"></span></button>
+          </div>
+          <div class="tier top"></div>
+          <div class="tier bottom"></div>
+          <div class="plate"></div>
+        </div>
+        <p class="wish-msg" id="wishMsg" aria-live="polite"></p>
+        <button class="btn ghost" id="relight" type="button" hidden>Light them again</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p class="hb">Happy Birthday, Puja! 🎂</p>
+    <p class="made">Made with <span style="color:var(--rose)">♥</span> by Niloy</p>
+    <button class="btn rose" id="song" type="button">🎵 Play your birthday song</button>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox">
+    <div class="frame">
+      <img id="lbImg" src="" alt="">
+      <p id="lbCap"></p>
+    </div>
+    <button class="close" id="lbClose" type="button" aria-label="Close">×</button>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+  (function () {
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var colors = ['#C2185B', '#E0A100', '#1E6FB8', '#F48FB1', '#ffffff'];
+
+    /* ---------- confetti ---------- */
+    function burst(big) {
+      if (typeof confetti !== 'function') return;
+      var n = big ? 1.6 : 1;
+      confetti({ particleCount: Math.round(120 * n), spread: 80, origin: { y: 0.35 }, colors: colors });
+      setTimeout(function () { confetti({ particleCount: Math.round(70 * n), angle: 60, spread: 60, origin: { x: 0 }, colors: colors }); }, 250);
+      setTimeout(function () { confetti({ particleCount: Math.round(70 * n), angle: 120, spread: 60, origin: { x: 1 }, colors: colors }); }, 400);
+    }
+    if (!reduced) window.addEventListener('load', function () { setTimeout(burst, 500); });
+    document.getElementById('celebrate').addEventListener('click', function () { burst(false); });
+
+    /* ---------- birthday song (plucked, a bit like a ukulele) ---------- */
+    var audio = null, playing = false;
+    var HZ = { G4: 392.00, A4: 440.00, B4: 493.88, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99 };
+    var SONG = [
+      ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['C5', 1], ['B4', 2],
+      ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['D5', 1], ['C5', 2],
+      ['G4', .75], ['G4', .25], ['G5', 1], ['E5', 1], ['C5', 1], ['B4', 1], ['A4', 2],
+      ['F5', .75], ['F5', .25], ['E5', 1], ['C5', 1], ['D5', 1], ['C5', 3]
+    ];
+    function pluck(ctx, f, t, d) {
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.32, t + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(d, 0.25) + 0.35);
+      g.connect(ctx.destination);
+      [[f, 'triangle', 1], [f * 2, 'sine', 0.35], [f * 3, 'sine', 0.12]].forEach(function (p) {
+        var o = ctx.createOscillator(), og = ctx.createGain();
+        o.type = p[1]; o.frequency.value = p[0]; og.gain.value = p[2];
+        o.connect(og); og.connect(g); o.start(t); o.stop(t + d + 0.5);
+      });
+    }
+    function playSong() {
+      if (playing) return;
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      audio = audio || new AC();
+      if (audio.state === 'suspended') audio.resume();
+      var beat = 0.4, t = audio.currentTime + 0.08;
+      SONG.forEach(function (n) { pluck(audio, HZ[n[0]], t, n[1] * beat); t += n[1] * beat; });
+      playing = true;
+      setTimeout(function () { playing = false; }, (t - audio.currentTime) * 1000);
+    }
+    document.getElementById('song').addEventListener('click', function () { playSong(); burst(false); });
+
+    /* ---------- spotlight ---------- */
+    var spot = document.getElementById('spot'), mask = document.getElementById('spotMask');
+    var userUntil = 0, visible = false, t0 = performance.now();
+    function setSpot(x, y) { mask.style.setProperty('--x', x + 'px'); mask.style.setProperty('--y', y + 'px'); }
+    function radius() { mask.style.setProperty('--r', Math.round(Math.min(spot.clientWidth, spot.clientHeight) * (reduced ? 0.36 : 0.22)) + 'px'); }
+    radius(); window.addEventListener('resize', radius);
+    function fromEvent(e) {
+      var r = spot.getBoundingClientRect();
+      setSpot(e.clientX - r.left, e.clientY - r.top);
+      userUntil = performance.now() + 2500;
+    }
+    spot.addEventListener('pointermove', fromEvent);
+    spot.addEventListener('pointerdown', fromEvent);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0.1 }).observe(spot);
+    } else { visible = true; }
+    function drift(now) {
+      if (visible && now > userUntil && !reduced) {
+        var s = (now - t0) / 1000, w = spot.clientWidth, h = spot.clientHeight;
+        setSpot(w / 2 + w * 0.34 * Math.sin(s * 0.55), h * 0.45 + h * 0.26 * Math.sin(s * 0.9 + 1));
+      }
+      requestAnimationFrame(drift);
+    }
+    requestAnimationFrame(drift);
+
+    /* ---------- letter ---------- */
+    var env = document.getElementById('envelope'), card = document.getElementById('letterCard'), hint = document.getElementById('envHint');
+    function openLetter() {
+      if (env.classList.contains('open')) return;
+      env.classList.add('open');
+      setTimeout(function () {
+        env.classList.add('gone');
+        setTimeout(function () {
+          env.style.display = 'none'; hint.style.display = 'none';
+          card.hidden = false; card.classList.add('show');
+          Array.prototype.forEach.call(card.children, function (el, i) { el.style.animationDelay = (i * 0.35) + 's'; });
+          if (!reduced && typeof confetti === 'function') setTimeout(function () { confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 }, colors: colors }); }, 300);
+        }, 450);
+      }, 700);
+    }
+    env.addEventListener('click', openLetter);
+    if (location.hash === '#letter-open') openLetter();
+
+    /* ---------- flip cards ---------- */
+    Array.prototype.forEach.call(document.querySelectorAll('.card'), function (c) {
+      c.addEventListener('click', function () { c.classList.toggle('flipped'); });
+    });
+
+    /* ---------- polaroid wall ---------- */
+    var PHOTOS = [
+      ['p01', 'sea, salt, smile'], ['p02', 'flower market'], ['p03', 'roses > everything'], ['p04', 'photographer at work'],
+      ['p05', 'golden hour'], ['p06', 'windy bridge'], ['p07', 'one red rose'], ['p08', 'two shadows'],
+      ['p10', 'blue saree, blue sea'], ['p11', 'block print & pillars'], ['p12', 'night flowers'], ['p13', 'festival lights'],
+      ['p14', 'rose, again'], ['p15', 'orange in the woods'], ['p16', 'Saraswati Puja'], ['p17', 'all hair, no face'],
+      ['p18', 'cat-feeding duty'], ['p19', 'Bay of Bengal'], ['p21', 'campus sunshine'], ['p22', 'balcony view'],
+      ['p23', 'eyes on the horizon'], ['p24', 'us'], ['p25', 'glasses on'], ['p26', 'between bookshelves'],
+      ['p27', 'lazy afternoon'], ['p28', 'fairy lights'], ['p29', 'painted walls'], ['p30', 'the green door'],
+      ['p31', 'in red'], ['p32', 'royal blue']
+    ];
+    var wall = document.getElementById('wallGrid');
+    var lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+    PHOTOS.forEach(function (p) {
+      var fig = document.createElement('figure'); fig.className = 'polaroid';
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'View photo: ' + p[1]);
+      var img = document.createElement('img'); img.src = 'assets/photos/' + p[0] + '.webp'; img.alt = p[1];
+      img.loading = 'lazy'; img.width = 600; img.height = 800;
+      var cap = document.createElement('figcaption'); cap.textContent = p[1];
+      b.appendChild(img); fig.appendChild(b); fig.appendChild(cap); wall.appendChild(fig);
+      b.addEventListener('click', function () {
+        lbImg.src = img.src; lbImg.alt = p[1]; lbCap.textContent = p[1];
+        if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
+      });
+    });
+    function closeLb() { if (lb.close) lb.close(); else lb.removeAttribute('open'); }
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
+
+    /* ---------- candles ---------- */
+    var candles = document.querySelectorAll('.candle'), msg = document.getElementById('wishMsg'), relight = document.getElementById('relight');
+    Array.prototype.forEach.call(candles, function (c) {
+      c.addEventListener('click', function () {
+        if (c.classList.contains('out')) return;
+        c.classList.add('out');
+        var left = document.querySelectorAll('.candle:not(.out)').length;
+        if (left === 0) {
+          msg.textContent = '✨ Wish made! Happy Birthday, Puja ✨';
+          relight.hidden = false;
+          burst(true);
+          playSong();
+        } else {
+          msg.textContent = left === 1 ? 'One more…' : left + ' to go…';
+        }
+      });
+    });
+    relight.addEventListener('click', function () {
+      Array.prototype.forEach.call(candles, function (c) { c.classList.remove('out'); });
+      msg.textContent = ''; relight.hidden = true;
+    });
+  })();
+  </script>
+</body>
+</html>
