@@ -1,5 +1,5 @@
-# Attention Is All She Deserves
+# Happy Birthday, Puja
 
-A little website for a big day. Happy birthday, Puja ♥
+A little website for a big day ♥
 
-**Live:** https://quitttcat.github.io/attention-is-all-she-deserves/
+**Live:** https://quitttcat.github.io/happy-birthday-puja/
