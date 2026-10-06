@@ -136,15 +136,19 @@
     .envelope.gone { opacity: 0; transform: translateY(30px) scale(.96); pointer-events: none; }
     .hint { font-family: var(--sans); font-size: 14px; color: var(--muted); margin-top: 14px; }
 
+    /* every line sits on a --lh grid so the text rests on the ruled lines */
     .letter {
-      width: min(680px, 100%); background: #fff; border-radius: 6px; padding: 40px 44px 36px;
+      --lh: 36px;
+      width: min(640px, 100%); border-radius: 6px; padding: 44px 52px 40px;
       box-shadow: 0 20px 50px rgba(34, 49, 63, .14);
-      background-image: repeating-linear-gradient(transparent 0 33px, #F4E7EA 33px 34px);
-      background-position: 0 38px;
+      background-color: #fff;
+      background-image: repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), #F2E1E6 calc(var(--lh) - 1px) var(--lh));
+      background-origin: content-box;
+      background-position: 0 -8px;
     }
-    .letter .dear { font-family: var(--hand); font-size: 40px; color: var(--rose); margin: 0 0 10px; line-height: 1.2; }
-    .letter p { margin: 0 0 16px; font-size: 19px; line-height: 34px; }
-    .letter .sign { font-family: var(--hand); font-size: 34px; color: var(--rose-deep); text-align: right; margin: 6px 0 0; }
+    .letter p { margin: 0 0 var(--lh); font-size: 20px; line-height: var(--lh); }
+    .letter .dear { position: relative; top: -7px; margin: 0; font-family: var(--hand); font-size: 42px; color: var(--rose); }
+    .letter .sign { position: relative; top: -4px; margin: 0; font-family: var(--hand); font-size: 32px; color: var(--rose-deep); text-align: right; }
     .letter.show > * { opacity: 0; transform: translateY(10px); animation: rise .7s ease forwards; }
     @keyframes rise { to { opacity: 1; transform: none; } }
 
@@ -292,20 +296,68 @@
       .card .back { padding: 14px; }
       .card .back .t { font-size: 26px; }
       .card .back .d { font-size: 14px; }
-      .letter { padding: 28px 22px 24px; }
-      .letter p { font-size: 17px; }
+      .letter { --lh: 32px; padding: 36px 24px 30px; }
+      .letter p { font-size: 18px; }
+      .letter .dear { font-size: 36px; top: -6px; }
+      .letter .sign { font-size: 28px; }
       .wall { grid-template-columns: repeat(2, 1fr); gap: 22px 16px; }
       .cake { transform: scale(.9); }
     }
+    /* ---------------- "tap to open" gift screen ---------------- */
+    /* Browsers only allow sound after a tap, so the page opens like a gift:
+       her first tap reveals the site and starts the song together. */
+    .intro { display: none; }
+    html.has-intro { overflow: hidden; }
+    .has-intro .intro {
+      display: flex; position: fixed; inset: 0; z-index: 100; width: 100%; margin: 0; padding: 24px; border: 0;
+      flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer;
+      color: #fff; font: inherit; overflow: hidden;
+      background: radial-gradient(circle at 50% 38%, #E0457F 0%, var(--rose) 45%, var(--rose-deep) 100%);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .intro.opened { opacity: 0; transform: scale(1.08); pointer-events: none; }
+    .intro .gift { font-size: clamp(88px, 20vw, 124px); line-height: 1; filter: drop-shadow(0 14px 22px rgba(0,0,0,.28)); animation: bob 1.6s ease-in-out infinite; }
+    @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-14px) rotate(5deg); } }
+    .intro .for { font-family: var(--hand); font-size: clamp(32px, 6vw, 42px); margin-top: 22px; }
+    .intro .big { font-family: var(--sans); font-weight: 800; font-size: clamp(30px, 7vw, 52px); line-height: 1.1; letter-spacing: -0.02em; margin-top: 4px; }
+    .intro .tap {
+      margin-top: 34px; font-family: var(--sans); font-weight: 600; font-size: 15px; padding: 11px 22px; border-radius: 999px;
+      background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.5); animation: pulse 1.8s ease-in-out infinite;
+    }
+    .intro .hearts span { position: absolute; bottom: -40px; color: rgba(255,255,255,.28); animation: floatup 9s linear infinite; }
+    .intro .hearts span:nth-child(1) { left: 8%;  font-size: 22px; animation-delay: 0s; }
+    .intro .hearts span:nth-child(2) { left: 22%; font-size: 34px; animation-delay: -3s; }
+    .intro .hearts span:nth-child(3) { left: 37%; font-size: 18px; animation-delay: -6s; }
+    .intro .hearts span:nth-child(4) { left: 55%; font-size: 28px; animation-delay: -1.5s; }
+    .intro .hearts span:nth-child(5) { left: 70%; font-size: 20px; animation-delay: -4.5s; }
+    .intro .hearts span:nth-child(6) { left: 84%; font-size: 36px; animation-delay: -7.5s; }
+    .intro .hearts span:nth-child(7) { left: 93%; font-size: 16px; animation-delay: -2.2s; }
+    @keyframes floatup { from { transform: translateY(0) rotate(0); } to { transform: translateY(-115vh) rotate(25deg); } }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
+      .intro .gift, .intro .tap, .intro .hearts span { animation: none; }
+      .intro .hearts { display: none; }
       .btn, .strip img, .card .inner, .envelope, .envelope .flap, .polaroid { transition: none; }
       .flame, .music.idle, .music.playing .bars i { animation: none; }
       .letter.show > * { animation: none; opacity: 1; transform: none; }
     }
   </style>
+  <script>
+    // show the gift screen only when JavaScript runs (so it can never trap the page);
+    // #letter-open skips it, for previewing the letter directly
+    if (location.hash !== '#letter-open') document.documentElement.classList.add('has-intro');
+  </script>
 </head>
 <body>
+  <button class="intro" id="intro" type="button" aria-label="Open your birthday surprise">
+    <span class="hearts" aria-hidden="true"><span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span></span>
+    <span class="gift" aria-hidden="true">🎁</span>
+    <span class="for">for Puja</span>
+    <span class="big">A little surprise,<br>made with love</span>
+    <span class="tap">Tap anywhere to open</span>
+  </button>
+
   <div class="topbar"></div>
 
   <header class="hero wrap">
@@ -365,11 +417,11 @@
         <p class="hint" id="envHint">Tap the envelope to open it</p>
         <article class="letter" id="letterCard" hidden>
           <p class="dear">Dear Puja,</p>
-          <p>You are one of the brightest people I know: a Math Olympiad camper who now plans cities, a photographer who notices light on ordinary things, a traveller, a reader, a gardener, a ukulele player, and someone who stops at night to feed a street cat.</p>
-          <p>Working on our paper with you was one of the best parts of this year. Making this for you was even better.</p>
-          <p>May this new year bring you excellent grades, beautiful journeys, armfuls of roses, new chords on the ukulele, and a thousand reasons to smile exactly the way you do.</p>
-          <p>Happy birthday.</p>
-          <p class="sign">— Niloy ♥</p>
+          <p>Happy birthday! Wishing you all the very best, today and always.</p>
+          <p>You are truly the best, and you deserve every little bit of happiness in this world.</p>
+          <p>May God always be with you.</p>
+          <p class="sign">With love,</p>
+          <p class="sign">Niloy ♥</p>
         </article>
       </div>
     </section>
@@ -477,7 +529,9 @@
       setTimeout(function () { confetti({ particleCount: Math.round(70 * n), angle: 60, spread: 60, origin: { x: 0 }, colors: colors }); }, 250);
       setTimeout(function () { confetti({ particleCount: Math.round(70 * n), angle: 120, spread: 60, origin: { x: 1 }, colors: colors }); }, 400);
     }
-    if (!reduced) window.addEventListener('load', function () { setTimeout(burst, 500); });
+    var intro = document.getElementById('intro');
+    var hasIntro = document.documentElement.classList.contains('has-intro');
+    if (!hasIntro && !reduced) window.addEventListener('load', function () { setTimeout(burst, 500); });
     document.getElementById('celebrate').addEventListener('click', function () { burst(false); });
 
     /* ---------- birthday song: loops forever, ukulele-ish ---------- */
@@ -575,6 +629,25 @@
       startMusic();
     }
     ['click', 'touchend', 'keydown'].forEach(function (ev) { document.addEventListener(ev, firstGesture, { passive: true }); });
+    // try to start on load anyway; only a few browsers allow it, the gift screen covers the rest
+    (function tryAutoplay() {
+      if (!ensureCtx()) return;
+      function check() { if (ctx.state === 'running' && state === 'idle') startMusic(); }
+      try { var p = ctx.resume(); if (p && p.then) p.then(check, function () {}); } catch (e) {}
+      setTimeout(check, 400);
+    })();
+
+    // opening the gift starts the song and reveals the page
+    function openIntro() {
+      if (intro.classList.contains('opened')) return;
+      startMusic();
+      intro.classList.add('opened');
+      setTimeout(function () { document.documentElement.classList.remove('has-intro'); intro.hidden = true; }, 600);
+      if (!reduced) setTimeout(function () { burst(true); }, 250);
+    }
+    intro.addEventListener('click', openIntro);
+    if (hasIntro) { try { intro.focus({ preventScroll: true }); } catch (e) {} }
+
     // stay quiet while the tab is in the background, pick up again on return
     document.addEventListener('visibilitychange', function () {
       if (!ctx || state !== 'playing') return;
